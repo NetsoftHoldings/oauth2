@@ -136,8 +136,7 @@ module OAuth2
         opts[:params] = params
       end
       response = request(options[:token_method], token_url, opts)
-      error = Error.new(response)
-      raise(error) if options[:raise_errors] && !(response.parsed.is_a?(Hash) && response.parsed['access_token'])
+      raise(Error.new(response)) if options[:raise_errors] && !(response.parsed.is_a?(Hash) && response.parsed['access_token'])
       access_token_class.from_hash(self, response.parsed.merge(access_token_opts))
     end
 
